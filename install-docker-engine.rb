@@ -1,5 +1,5 @@
 apt_package 'install-prerequesits' do
-  package ['apt-transport-https','curl','software-properties-common']
+  package_name ['apt-transport-https','curl','software-properties-common']
   options ['--no-install-recommends']
 end
 
@@ -11,9 +11,9 @@ apt_repository 'docker' do
 end
 
 apt_package 'install-decker-engine' do
-  package 'docker-engine'
+  package_name 'docker-engine'
 end
 
-execuite 'Download Docker Image' do
-  command ' docker run -e ELASTIC_PASSWORD=MagicWord docker.elastic.co/elasticsearch/elasticsearch-platinum:6.1.2'
+execute 'Download Docker Image' do
+  command 'docker run -d -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:6.1.2'
 end
